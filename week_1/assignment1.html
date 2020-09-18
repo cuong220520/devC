@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Assignment</title>
+    </head>
+    <body>
+        <div id="message"></div>
+
+        <input type="number" id="guessNumber" />
+
+        <button id="guessButton">Guess</button>
+
+        <script>
+            let button = document.getElementById('guessButton')
+
+            const RANDOM_NUMBER = 20
+
+            let times = 1
+
+            button.addEventListener('click', function () {
+                let guessNumber = parseInt(
+                    document.getElementById('guessNumber').value
+                )
+                let message
+
+                if (guessNumber === RANDOM_NUMBER) {
+                    message = `Congratulations! ${guessNumber} was the correct answer! It tooks you ${times} times to guess the answer.`
+                } else if (guessNumber < RANDOM_NUMBER) {
+                    times++
+                    message = 'Your guess was too low, guess higher'
+                } else if (guessNumber > RANDOM_NUMBER) {
+                    times++
+                    message = 'Your guess was too high, guess lower'
+                }
+
+                document.getElementById(
+                    'message'
+                ).innerHTML = `<h3>${message}</h3>`
+            })
+        </script>
+    </body>
+</html>

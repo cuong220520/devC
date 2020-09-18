@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Lab HTML/CSS</title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+
+        <h1>Currency Converter</h1>
+
+        <select id="currencies">
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+            <option value="YEN">YEN</option>
+        </select>
+
+        <input type="text" id="input-value" />
+
+        <button onclick="handleConvertWithApi()">Convert Currency</button>
+
+        <div>
+            <span id="result"></span>
+        </div>
+
+        <script>
+            var rates = {
+                USD_VND: 23123,
+                EUR_VND: 27456,
+                YEN_VND: 218,
+            }
+
+            function handleConvert() {
+                alert(currency)
+
+                var result =
+                    document.getElementById('input-value').value *
+                    rates[`${currency}_VND`]
+
+                document.getElementById(
+                    'result'
+                ).innerHTML = `<h3>Result is: ${result.toFixed(2)}</h3>`
+            }
+
+            function handleConvertWithApi() {
+                var currency = document.getElementById('currencies').value
+                var xhr = new XMLHttpRequest()
+
+                xhr.open(
+                    'GET',
+                    `https://free.currconv.com/api/v7/convert?q=${currency}_VND&compact=ultra&apiKey=e81378e11e46beb5a4a6`
+                )
+
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var rate = JSON.parse(xhr.responseText)
+
+                        var result =
+                            document.getElementById('input-value').value *
+                            rate[`${currency}_VND`]
+
+                        document.getElementById(
+                            'result'
+                        ).innerHTML = `<h3>Result is: ${result.toFixed(2)}</h3>`
+                    }
+                }
+
+                xhr.send()
+            }
+        </script>
+    </body>
+</html>
